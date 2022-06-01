@@ -69,4 +69,32 @@ describe("Twitter Contract", function() {
 			expect(myTweetsFromChain.length).to.equal(myTweets);
 		})
 	});
+
+	describe('UPDATE TWEET FUNCTION', function () {
+		it('update tweet functionality check', async function () {
+		  const tweetId = 6;
+		  const tweetContent = "Hello this is a new tweet";
+	
+		  await expect(await twitter.connect(author)
+		  .updateTweet(tweetId, tweetContent, false))
+			.to.emit(twitter, 'TweetUpdate')
+			.withArgs(author.address, tweetId, false);
+		});
+	  });
+	  
+
+	describe("DELETE TWEET FUNCTION", function() {
+		it("delete tweet functionality check", async function() {
+			const idToDel = 0;
+			const delStatus = true;
+
+			await expect (
+				twitter.connect(addr1).deleteTweet(idToDel, delStatus)
+			).to.emit(
+				twitter, "TweetDel"
+			).withArgs(
+				idToDel, delStatus
+			);
+		})
+	})
 });
