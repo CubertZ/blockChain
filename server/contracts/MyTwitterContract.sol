@@ -66,24 +66,5 @@ contract MyTwitterContract {
 		return result;
 	}
 
-	//Method to update a tweet
-	function updateTweet(uint tweetId, string memory tweetContent, bool deleteStatus) external {
-        if (originalAuthor[tweetId] == msg.sender && arrayTweets[tweetId].deleteStatus == false) {
-            uint newTweetId = arrayTweets.length;
-            arrayTweets[tweetId].deleteStatus = true;
-            arrayTweets.push(Tweet(newTweetId, msg.sender, tweetContent, deleteStatus));
-            originalAuthor[newTweetId] = msg.sender;
-            emit TweetUpdate(msg.sender, tweetId, deleteStatus);
-        }
-    }
-
-	//Method to Delete a Tweet
-	function deleteTweet(uint tweetId, bool deleteStatus) external {
-		if(originalAuthor[tweetId] == msg.sender && arrayTweets[tweetId].deleteStatus == false) {
-			arrayTweets[tweetId].deleteStatus = deleteStatus;
-			emit TweetDel(tweetId, deleteStatus);
-		}
-	}
-
 
 }
